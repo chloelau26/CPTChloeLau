@@ -14,8 +14,21 @@ public class cptChloeLau{
 				// play game option
 				blnAvaliable = true;
 				con.clear();
-				con.println("hi");
 				
+				// open text file to store user info
+				TextOutputFile highScore = new TextOutputFile("High Score.txt",true); 
+				
+				// user input user info
+				String strUser;
+				con.print("Enter username: ");
+				strUser = con.readLine();
+				
+				// store into text file
+				highScore.println(strUser);
+				highScore.close();
+				
+				cptTools.storeWords(con);
+								
 			}else if(chrChoice == 'v'){
 				// view high score option
 				blnAvaliable = true;
@@ -43,6 +56,9 @@ public class cptChloeLau{
 				chrChoice = cptTools.menu(con);
 			}
 		}
+		
+		
+		// start here
 		
 	}
 }
