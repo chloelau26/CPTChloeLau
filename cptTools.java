@@ -75,44 +75,53 @@ public class cptTools{
 			intRandom = (int)(Math.random()*100+1);
 			strWords[intRow][1] = Integer.toString(intRandom);
 			
-			// print to debug
+			// print to debug (words and number assigned)
 			System.out.println("Word added: " + strWords[intRow][0]);
 			System.out.println(intRow+ "  "+strWords[intRow][1]);
 		}		
 		list.close();
 		
-		// continue
-		/*
-		int intRandom;
-		for(intCount = 0; intCount < intNum; intCount++){
-			intRandom = (int)(Math.random()*100+1);
-			strWords[intCount][1] = Integer.toString(intRandom);
-			// print to debug (ensure a
-			System.out.println(intCount+ "  "+strWords[intCount][1]);
-		}
-		*/
-		
-		/*
-		int intRandom;
-		boolean blnDiffNum = false;
-		int intSecond;
-		int intWordNum;
-		for(intRow = 0; intRow < intNum; intRow++){
-			intRandom = (int) (Math. random()*100 + 1);
-			while(!blnDiffNum){
-				for(intSecond = 0; intSecond < intNum; intSecond++){
-					intWordNum = Integer.parseInt(strWords[intSecond][1]);
-					if(intWordNum == intRandom){
-						intRandom = (int) (Math. random()*100 + 1);
+		// Variables for ensure uniqueness of each number
+		int intRow2;
+		int intTest;
+		int intTrack = 0;
+		boolean blnDiffNum;
+
+		for (intRow = 0; intRow <= intNum - 1; intRow++) {
+			for (intRow2 = 0; intRow2 <= intNum - 1; intRow2++) {
+				// Compare only different row values
+				if (intRow2 != intRow && strWords[intRow][1].equals(strWords[intRow2][1])) {
+					blnDiffNum = false;
+					while (!blnDiffNum) {
+						intRandom = (int) (Math.random() * 100 + 1);
+						strWords[intRow][1] = Integer.toString(intRandom);
+
+						// Reset intTrack
+						intTrack = 0;
+						for (intTest = 0; intTest <= intNum - 1; intTest++) {
+							if (intTest != intRow && !strWords[intRow][1].equals(strWords[intTest][1])) {
+								intTrack++;
+							}
+						}
+
+						// if nothing repeats, exit loop
+						if (intTrack == intNum - 1) {
+							blnDiffNum = true;
+						}
 					}
 				}
 			}
 		}
-		*/
-		// intRandom = (int) (Math. random()*intRange + intStart);
+		
+		// print to debug (ensure all numbers in array are unique)
+		int intCount;
+		for(intCount = 0; intCount < intNum; intCount++){
+			System.out.println(strWords[intCount][1]);
+		}
 		
 		
-	}
+		
+	} //end of method
 	
 	
 }
