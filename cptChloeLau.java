@@ -16,7 +16,7 @@ public class cptChloeLau{
 				con.clear();
 				
 				// open text file to store user info
-				TextOutputFile highScore = new TextOutputFile("High Score.txt",true); 
+				TextOutputFile highScore = new TextOutputFile("highscore.txt",true); 
 				
 				// user input user info
 				String strUser;

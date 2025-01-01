@@ -61,24 +61,57 @@ public class cptTools{
 		list.close();
 			
 		// set up 2D array to input theme words into array
-		String strWord[][];
-		strWord = new String[intNum][2];
+		String strWords[][];
+		strWords = new String[intNum][2];
 		
 		// reopen same theme text file
 		list = new TextInputFile(strTheme);
 		int intRow;
 		
 		// store theme words into array
+		int intRandom;
 		for(intRow = 0; intRow < intNum; intRow++){
-			strWord[intRow][0] = list.readLine();
-			strWord[intRow][1] = "0";
+			strWords[intRow][0] = list.readLine();
+			intRandom = (int)(Math.random()*100+1);
+			strWords[intRow][1] = Integer.toString(intRandom);
 			
 			// print to debug
-			System.out.println("Word added: " + strWord[intRow][0]);
+			System.out.println("Word added: " + strWords[intRow][0]);
+			System.out.println(intRow+ "  "+strWords[intRow][1]);
 		}		
 		list.close();
 		
 		// continue
+		/*
+		int intRandom;
+		for(intCount = 0; intCount < intNum; intCount++){
+			intRandom = (int)(Math.random()*100+1);
+			strWords[intCount][1] = Integer.toString(intRandom);
+			// print to debug (ensure a
+			System.out.println(intCount+ "  "+strWords[intCount][1]);
+		}
+		*/
+		
+		/*
+		int intRandom;
+		boolean blnDiffNum = false;
+		int intSecond;
+		int intWordNum;
+		for(intRow = 0; intRow < intNum; intRow++){
+			intRandom = (int) (Math. random()*100 + 1);
+			while(!blnDiffNum){
+				for(intSecond = 0; intSecond < intNum; intSecond++){
+					intWordNum = Integer.parseInt(strWords[intSecond][1]);
+					if(intWordNum == intRandom){
+						intRandom = (int) (Math. random()*100 + 1);
+					}
+				}
+			}
+		}
+		*/
+		// intRandom = (int) (Math. random()*intRange + intStart);
+		
+		
 	}
 	
 	
