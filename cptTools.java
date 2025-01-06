@@ -27,6 +27,27 @@ public class cptTools{
 		String strTheme;
 			
 		// Output Theme Option
+		TextInputFile txtTheme = new TextInputFile("Theme.txt");
+		int intRow = 1; 
+		while(txtTheme.eof() == false){
+			txtTheme.readLine();
+			intRow++;
+		}
+		txtTheme.close();
+		
+		String strThemeList[];
+		strThemeList = new String[intRow];
+		
+		
+		txtTheme = new TextInputFile("Theme.txt");
+		int intCount = 0;
+		while(txtTheme.eof() == false){
+			strThemeList[intCount] = txtTheme.readLine();
+			con.println((intCount + 1) + ". " + strThemeList[intCount]);
+			intCount++;
+		}
+
+		// for(intCount = 1; intCount <
 		con.println("1. Solar Systems");
 		con.println("2. Greek Mythology");
 		con.println("3. Countries");
@@ -77,7 +98,7 @@ public class cptTools{
 			
 			// print to debug (words and number assigned)
 			System.out.println("Word added: " + strWords[intRow][0]);
-			System.out.println(intRow+ "  "+strWords[intRow][1]);
+			System.out.println(strWords[intRow][1]);
 		}		
 		list.close();
 		
@@ -86,7 +107,7 @@ public class cptTools{
 		int intTest;
 		int intTrack = 0;
 		boolean blnDiffNum;
-
+		
 		for (intRow = 0; intRow <= intNum - 1; intRow++) {
 			for (intRow2 = 0; intRow2 <= intNum - 1; intRow2++) {
 				// Compare only different row values
@@ -115,11 +136,60 @@ public class cptTools{
 		
 		// print to debug (ensure all numbers in array are unique)
 		int intCount;
+		System.out.println("Uniqueness of Number");
 		for(intCount = 0; intCount < intNum; intCount++){
 			System.out.println(strWords[intCount][1]);
 		}
 		
+		// bubble sort words
+		int intRow1;
+		String strTempNum;
+		String strTempName;
+		for(intRow1 = 0; intRow1 < intNum - 1; intRow1++){
+			for(intRow2 = 0; intRow2 < intNum - intRow1 - 1; intRow2++){
+				if(Integer.parseInt(strWords[intRow2][1]) > Integer.parseInt(strWords[intRow2+1][1])){
+					// store values greater into a temporary variable
+					strTempName = strWords[intRow2][0];
+					strTempNum = strWords[intRow2][1];
+					
+					// right item moves to the left
+					strWords[intRow2][0] = strWords[intRow2+1][0];
+					strWords[intRow2][1] = strWords[intRow2+1][1];
+					
+					// put temporary value to right
+					strWords[intRow2+1][0] = strTempName;
+					strWords[intRow2+1][1] = strTempNum;
+				}
+			}
+		}
 		
+		// print to debug (ensure all number sorted properly)
+		System.out.println(" ");
+		System.out.println("Bubble Sort");
+		for(intCount = 0; intCount < intNum; intCount++){
+			System.out.println(strWords[intCount][1]);
+		}
+		
+		// start of user game play
+		boolean blnPlay = true;
+		intCount = 0;
+		String strSecret;
+		int intLength;
+		int intTry = 0;
+		int intScore;
+		while(blnPlay && intTry > -1){
+			strSecret = strWords[intCount][0];
+			intLength = strSecret.length();
+			intTry = intLength - 4;
+			
+			// scamble word	
+			String strScamble;
+			
+
+			
+		
+			
+		}
 		
 	} //end of method
 	
