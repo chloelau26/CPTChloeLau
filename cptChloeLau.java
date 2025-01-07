@@ -38,8 +38,10 @@ public class cptChloeLau{
 			}else if(chrChoice == 'q'){
 				// quit option
 				blnAvaliable = true;
+				con.sleep(100);
 				con.clear();
-				con.println("s");
+				con.sleep(100);
+				con.closeWindow();
 				
 			}else if(chrChoice == 'h'){
 				// help option
@@ -48,12 +50,14 @@ public class cptChloeLau{
 				con.println("i");
 				
 			}else{
-				con.sleep(100);
-				con.clear();
-				con.println("Invalid Input");
-				con.println("Please Try Again");
-				con.println("-----------------------------------------------");
-				chrChoice = cptTools.menu(con);
+				while(chrChoice != 'h' || chrChoice != 'p' || chrChoice != 'q' || chrChoice != 'v'){
+					con.sleep(100);
+					con.clear();
+					con.println("Invalid Input");
+					con.println("Please Try Again");
+					con.println("-----------------------------------------------");
+					chrChoice = cptTools.menu(con); // can only run once more (figure out the error)
+				}
 			}
 		}
 		

@@ -1,10 +1,6 @@
 import arc.*;
 
 public class cptTools{
-	//public static void introScreen(Console con){
-		
-	//}
-	
 	public static char menu(Console con){		
 		// Variables
 		char chrChoice; 
@@ -30,29 +26,11 @@ public class cptTools{
 		TextInputFile txtTheme = new TextInputFile("Theme.txt");
 		int intRow = 1; 
 		while(txtTheme.eof() == false){
-			txtTheme.readLine();
+			strTheme = txtTheme.readLine();
+			con.println(intRow + ". " + strTheme);
 			intRow++;
 		}
 		txtTheme.close();
-		
-		String strThemeList[];
-		strThemeList = new String[intRow];
-		
-		
-		txtTheme = new TextInputFile("Theme.txt");
-		int intCount = 0;
-		while(txtTheme.eof() == false){
-			strThemeList[intCount] = txtTheme.readLine();
-			con.println((intCount + 1) + ". " + strThemeList[intCount]);
-			intCount++;
-		}
-
-		// for(intCount = 1; intCount <
-		con.println("1. Solar Systems");
-		con.println("2. Greek Mythology");
-		con.println("3. Countries");
-		con.println("4. Formula 1");
-		con.println("5. Chemical Element");
 			
 		//Store User Decision
 		con.print("Enter choice: ");
@@ -61,7 +39,7 @@ public class cptTools{
 		// transition screen
 		con.sleep(100);
 		con.clear();
-		
+				
 		return strTheme;
 	}
 	
@@ -136,6 +114,7 @@ public class cptTools{
 		
 		// print to debug (ensure all numbers in array are unique)
 		int intCount;
+		System.out.println(" ");
 		System.out.println("Uniqueness of Number");
 		for(intCount = 0; intCount < intNum; intCount++){
 			System.out.println(strWords[intCount][1]);

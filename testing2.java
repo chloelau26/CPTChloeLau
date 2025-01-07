@@ -5,56 +5,74 @@ public class testing2{
 		Console con = new Console();	
 		
 		int intRow;
+		int intRow2;
+		int intRandom;
+		int intCount;
+		int intTrack;
+		int intTest;
 		
 		// start of user game play
 		boolean blnPlay = true;
 		intCount = 0;
-		String strSecret = "sodium";
+		String strSecret = "sodium"; // change
 		int intLength;
-		int intTry = 0;
+		int intTryLeft = 0;
 		int intScore;
+		String strScamble;
+		String strIndex[];
+		boolean blnDiffIndex;
 		
-		str
 		
-		while(blnPlay && intTry > -1){
+		while(blnPlay && intTryLeft > -1){
 			// strSecret = strWords[intCount][0];
 			intLength = strSecret.length();
-			intTry = intLength - 4;
+			intTryLeft = intLength - 4;	
+			strIndex = new String[intLength];		
 			
-			// scamble word	
-			String strScamble;
+			// initalize array
+			for(intRow = 0; intRow < intLength; intRow++){
+				strIndex[intCount] = Integer.toString(intLength);
+			}
+			
 			
 			// 2D array for scramble word number
 			for(intRow = 0; intRow < intLength; intRow++){
+				intRandom = (int) (Math.random() * (intLength - 1));
+				strIndex[intRow] = Integer.toString(intRandom);
 				
-			}
-			
-			// TextInputFile txtWordIndex = new TextInputFile("Word Index.txt");
-			for (intRow = 0; intRow <= intNum - 1; intRow++) {
-				for (intRow2 = 0; intRow2 <= intNum - 1; intRow2++) {
-					// Compare only different row values
-					if (intRow2 != intRow && strWords[intRow][1].equals(strWords[intRow2][1])) {
-						blnDiffNum = false;
-						while (!blnDiffNum) {
-							intRandom = (int) (Math.random() * intLength - 1);
-							strWords[intRow][1] = Integer.toString(intRandom);
-
-							// Reset intTrack
+				for(intRow2 = 1; intRow < intLength; intRow2++){
+					if(strIndex[intRow].equals(strIndex[intRow2])){
+						blnDiffIndex = false;
+						
+						while(!blnDiffIndex){
+							intRandom = (int) (Math.random() * (intLength - 1));
+							strIndex[intRow] = Integer.toString(intRandom);
+							
 							intTrack = 0;
-							for (intTest = 0; intTest <= intNum - 1; intTest++) {
-								if (intTest != intRow && !strWords[intRow][1].equals(strWords[intTest][1])) {
+							for(intTest = 0; intTest <= intLength - 1; intTest++){
+								if (intTest != intRow && !strIndex[intRow].equals(strIndex[intTest])) {
 									intTrack++;
 								}
 							}
-
-							// if nothing repeats, exit loop
-							if (intTrack == intNum - 1) {
-								blnDiffNum = true;
+							
+							if (intTrack == intLength - 1) {
+								blnDiffIndex = true;
 							}
 						}
 					}
 				}
+				
+				
+				
+			// System
+			for(intRow = 0; intRow < intLength; intRow++){
+				System.out.println(strIndex[intRow]);
 			}
+				
+			}
+		}
+			
+		
 			
 	}
 }
