@@ -9,7 +9,7 @@ public class testing2{
 		int intRandom;
 		int intCount;
 		int intTrack;
-		int intTest;
+		int intTestRow;
 		
 		// start of user game play
 		boolean blnPlay = true;
@@ -21,6 +21,8 @@ public class testing2{
 		String strScamble;
 		String strIndex[];
 		boolean blnDiffIndex;
+		int intRow3;
+		int intOrder;
 		
 		
 		while(blnPlay && intTryLeft > -1){
@@ -49,30 +51,28 @@ public class testing2{
 							strIndex[intRow] = Integer.toString(intRandom);
 							
 							intTrack = 0;
-							for(intTest = 0; intTest <= intLength - 1; intTest++){
-								if (intTest != intRow && !strIndex[intRow].equals(strIndex[intTest])) {
+							for(intTestRow = 0; intTestRow < intLength; intTestRow++){
+								if (intTestRow != intRow && !strIndex[intRow].equals(strIndex[intTestRow])) {
 									intTrack++;
 								}
 							}
 							
-							if (intTrack == intLength - 1) {
+							// make sure it is not in chronological order
+							
+							if (intTrack == intLength) {
 								blnDiffIndex = true;
 							}
 						}
 					}
 				}
-				
-				
-				
-			// System
-			for(intRow = 0; intRow < intLength; intRow++){
-				System.out.println(strIndex[intRow]);
 			}
-				
-			}
-		}
 			
+		}
 		
+			
+			
+			
+			
 			
 	}
 }

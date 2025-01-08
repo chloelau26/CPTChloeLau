@@ -18,6 +18,43 @@ public class cptTools{
 		return chrChoice;
 	}
 	
+	public static void quit(Console con){
+		con.println("Game Exiting...");
+		con.clear();
+		con.sleep(1000);
+		con.closeWindow();
+	}
+	
+	public static void secretMenu(Console con){
+		int intRandom = (int) (Math.random()*5 + 1);
+		// on top of the scrambled word (layer placed on top of the scrambled word)
+		
+		// joke result correspond to joke number generated
+		if(intRandom == 1){
+			con.println("How do trees get on the Internet?");
+			con.sleep(100);
+			con.println("They log in!");
+		}else if(intRandom == 2){
+			con.println("What do computers like to eat?");
+			con.sleep(100);
+			con.println("Chips.");
+		}else if(intRandom == 3){
+			con.println("What do elves learn in school?");
+			con.sleep(100);
+			con.println("The elf-abet.");
+		}else if(intRandom == 4){
+			con.println("Why do cows wear bells?");
+			con.sleep(100);
+			con.println("Because their horns don’t work.");
+		}else if(intRandom == 5){
+			con.println("Why did the bicycle fall over?");
+			con.sleep(100);
+			con.println("Because it was two tired.");
+		}
+		
+		// place the image back on top (only that section)
+	}
+	
 	public static String theme(Console con){
 		// Variable
 		String strTheme;
@@ -43,7 +80,7 @@ public class cptTools{
 		return strTheme;
 	}
 	
-	public static void storeWords(Console con){
+	public static void play(Console con){
 		// open themes words from text file
 		String strTheme = cptTools.theme(con);
 		strTheme = strTheme + ".txt";
@@ -82,7 +119,7 @@ public class cptTools{
 		
 		// Variables for ensure uniqueness of each number
 		int intRow2;
-		int intTest;
+		int intTestRow;
 		int intTrack = 0;
 		boolean blnDiffNum;
 		
@@ -97,8 +134,8 @@ public class cptTools{
 
 						// Reset intTrack
 						intTrack = 0;
-						for (intTest = 0; intTest <= intNum - 1; intTest++) {
-							if (intTest != intRow && !strWords[intRow][1].equals(strWords[intTest][1])) {
+						for (intTestRow = 0; intTestRow <= intNum - 1; intTestRow++) {
+							if (intTestRow != intRow && !strWords[intRow][1].equals(strWords[intTestRow][1])) {
 								intTrack++;
 							}
 						}
@@ -164,9 +201,9 @@ public class cptTools{
 			// scamble word	
 			String strScamble;
 			
-
 			
-		
+			
+			
 			
 		}
 		

@@ -27,7 +27,7 @@ public class cptChloeLau{
 				highScore.println(strUser);
 				highScore.close();
 				
-				cptTools.storeWords(con);
+				cptTools.play(con);
 								
 			}else if(chrChoice == 'v'){
 				// view high score option
@@ -38,26 +38,24 @@ public class cptChloeLau{
 			}else if(chrChoice == 'q'){
 				// quit option
 				blnAvaliable = true;
-				con.sleep(100);
-				con.clear();
-				con.sleep(100);
-				con.closeWindow();
+				cptTools.quit(con);
 				
 			}else if(chrChoice == 'h'){
 				// help option
-				blnAvaliable = true;
 				con.clear();
-				con.println("i");
+				con.println("Guess The Word");
+				con.println("1. Select a theme, and a word will be generated based on that theme");
+				
+				con.print("Enter (p) to start game: ");
+				chrChoice = con.readChar();
 				
 			}else{
-				while(chrChoice != 'h' || chrChoice != 'p' || chrChoice != 'q' || chrChoice != 'v'){
-					con.sleep(100);
-					con.clear();
-					con.println("Invalid Input");
-					con.println("Please Try Again");
-					con.println("-----------------------------------------------");
-					chrChoice = cptTools.menu(con); // can only run once more (figure out the error)
-				}
+				con.sleep(100);
+				con.clear();
+				con.println("Invalid Input");
+				con.println("Please Try Again");
+				con.println("-----------------------------------------------");
+				chrChoice = cptTools.menu(con); // can only run once more (figure out the error)
 			}
 		}
 		
