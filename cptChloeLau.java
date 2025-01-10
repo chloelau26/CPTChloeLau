@@ -7,6 +7,7 @@ public class cptChloeLau{
 		// activate main menu 
 		char chrChoice = cptTools.menu(con);
 		boolean blnAvaliable = false;
+		int intRetry;
 		
 		// if statement in a while loop to ensure option choose if avaliable and the different route based on user decision
 		while(!blnAvaliable){
@@ -55,7 +56,23 @@ public class cptChloeLau{
 				con.println("Invalid Input");
 				con.println("Please Try Again");
 				con.println("-----------------------------------------------");
-				chrChoice = cptTools.menu(con); // can only run once more (figure out the error)
+				chrChoice = cptTools.menu(con); 
+				
+				if(chrChoice != 'p' && chrChoice != 'v' && chrChoice != 'q' && chrChoice != 'h'){
+					con.clear();
+					con.println("Invalid Input");
+					con.println("Please Try Again");
+					con.println("-----------------------------------------------");
+					chrChoice = cptTools.menu(con); 
+					if(chrChoice != 'p' && chrChoice != 'v' && chrChoice != 'q' && chrChoice != 'h'){
+						con.println("");
+						con.println("");
+						con.println("Too many invalid attempts. Game will now exit.");
+						con.sleep(500);
+						con.closeWindow();
+						
+					}
+				}
 			}
 		}
 		

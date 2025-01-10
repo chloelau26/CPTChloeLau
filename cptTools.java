@@ -14,11 +14,12 @@ public class cptTools{
 		// User Decision
 		con.print("Enter Choice: ");
 		chrChoice = con.getChar();
-		con.println(chrChoice);
+		// con.println(chrChoice);
 		return chrChoice;
 	}
 	
 	public static void quit(Console con){
+		con.clear();
 		con.println("Game Exiting...");
 		con.clear();
 		con.sleep(1000);
