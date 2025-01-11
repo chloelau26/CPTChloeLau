@@ -194,6 +194,7 @@ public class cptTools{
 		int intLength;
 		int intTry = 0;
 		int intScore;
+		blnUnique = false;
 		while(blnPlay && intTry > -1){
 			strSecret = strWords[intCount][0];
 			intLength = strSecret.length();
@@ -204,8 +205,9 @@ public class cptTools{
 			
 			
 			
-			
-			
+		while (!isUnique) {
+			randomIndex = (int) (Math.random() * intLength);
+			isUnique = true;
 		}
 		
 	} //end of method
