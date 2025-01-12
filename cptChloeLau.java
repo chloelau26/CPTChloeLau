@@ -21,14 +21,14 @@ public class cptChloeLau{
 				
 				// user input user info
 				String strUser;
-				con.print("Enter username: ");
+				con.print(" Enter username: ");
 				strUser = con.readLine();
 				
 				// store into text file
 				highScore.println(strUser);
 				highScore.close();
 				
-				cptTools.play(con);
+				// cptTools.play(con);
 								
 			}else if(chrChoice == 'v'){
 				// view high score option
@@ -45,17 +45,22 @@ public class cptChloeLau{
 				// help option
 				con.clear();
 				con.println("Guess The Word");
-				con.println("1. Select a theme, and a word will be generated based on that theme");
+				con.println(" 1. Select a Theme: A word will be randomly generated based on the selected theme.");
+				con.println(" 2. Unscramble the Word: You must attempt to guess and unscramble the word within a ");
+				con.println("    limited number of tries (displayed in the top left corner).");
+				con.println(" 3. Scoring and Continuation: After solving the word, one point will be added to your score."); 
+				con.println("    You will then have the option to either continue playing or quit the game.");
 				
-				con.print("Enter (p) to start game: ");
+				con.println("");
+				con.print(" Enter (p) to start game: ");
 				chrChoice = con.readChar();
 				
 			}else{
 				con.sleep(100);
 				con.clear();
-				con.println("Invalid Input");
-				con.println("Please Try Again");
-				con.println("-----------------------------------------------");
+				con.println(" Invalid Input");
+				con.println(" Please Try Again");
+				con.println(" -----------------------------------------------");
 				chrChoice = cptTools.menu(con); 
 				
 				if(chrChoice != 'p' && chrChoice != 'v' && chrChoice != 'q' && chrChoice != 'h'){
@@ -67,7 +72,7 @@ public class cptChloeLau{
 					if(chrChoice != 'p' && chrChoice != 'v' && chrChoice != 'q' && chrChoice != 'h'){
 						con.println("");
 						con.println("");
-						con.println("Too many invalid attempts. Game will now exit.");
+						con.println(" Too many invalid attempts. Game will now exit.");
 						con.sleep(500);
 						con.closeWindow();
 						

@@ -6,13 +6,13 @@ public class cptTools{
 		char chrChoice; 
 		
 		// Output Option
-		con.println("Play Game (p)");
-		con.println("View High Score (v)");
-		con.println("Quit (q)");
-		con.println("Help (h)");
+		con.println(" Play Game (p)");
+		con.println(" View High Score (v)");
+		con.println(" Quit (q)");
+		con.println(" Help (h)");
 		
 		// User Decision
-		con.print("Enter Choice: ");
+		con.print(" Enter Choice: ");
 		chrChoice = con.getChar();
 		// con.println(chrChoice);
 		return chrChoice;
@@ -20,7 +20,7 @@ public class cptTools{
 	
 	public static void quit(Console con){
 		con.clear();
-		con.println("Game Exiting...");
+		con.println(" Game Exiting...");
 		con.clear();
 		con.sleep(1000);
 		con.closeWindow();
@@ -32,25 +32,25 @@ public class cptTools{
 		
 		// joke result correspond to joke number generated
 		if(intRandom == 1){
-			con.println("How do trees get on the Internet?");
+			con.println(" How do trees get on the Internet?");
 			con.sleep(100);
-			con.println("They log in!");
+			con.println(" They log in!");
 		}else if(intRandom == 2){
-			con.println("What do computers like to eat?");
+			con.println(" What do computers like to eat?");
 			con.sleep(100);
-			con.println("Chips.");
+			con.println(" Chips.");
 		}else if(intRandom == 3){
-			con.println("What do elves learn in school?");
+			con.println(" What do elves learn in school?");
 			con.sleep(100);
-			con.println("The elf-abet.");
+			con.println(" The elf-abet.");
 		}else if(intRandom == 4){
-			con.println("Why do cows wear bells?");
+			con.println(" Why do cows wear bells?");
 			con.sleep(100);
-			con.println("Because their horns don’t work.");
+			con.println(" Because their horns don’t work.");
 		}else if(intRandom == 5){
-			con.println("Why did the bicycle fall over?");
+			con.println(" Why did the bicycle fall over?");
 			con.sleep(100);
-			con.println("Because it was two tired.");
+			con.println(" Because it was two tired.");
 		}
 		
 		// place the image back on top (only that section)
@@ -194,7 +194,7 @@ public class cptTools{
 		int intLength;
 		int intTry = 0;
 		int intScore;
-		blnUnique = false;
+		// blnUnique = false;
 		while(blnPlay && intTry > -1){
 			strSecret = strWords[intCount][0];
 			intLength = strSecret.length();
@@ -205,9 +205,11 @@ public class cptTools{
 			
 			
 			
-		while (!isUnique) {
+		/*while (!isUnique) {
 			randomIndex = (int) (Math.random() * intLength);
 			isUnique = true;
+		}
+		*/
 		}
 		
 	} //end of method
