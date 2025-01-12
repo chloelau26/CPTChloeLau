@@ -212,6 +212,16 @@ public class cptTools{
 		*/
 		}
 		
+		
+		
+		// testing
+		boolean blnPlay = true;
+		String strSecret = "sodium"; // Example word
+		int intLength;
+		int intTryLeft;
+		String[] strIndex;
+
+		
 	} //end of method
 	
 	
