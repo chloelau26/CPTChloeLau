@@ -28,11 +28,11 @@ public class cptChloeLau{
 				highScore.println(strUser);
 				highScore.close();
 				
-				// cptTools.play(con);
+				cptTools.play(con);
 								
 			}else if(chrChoice == 'v'){
 				// view high score option
-				blnAvaliable = true;
+				// blnAvaliable = true;
 				con.clear();
 				con.println("a");
 				

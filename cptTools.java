@@ -184,43 +184,59 @@ public class cptTools{
 		System.out.println(" ");
 		System.out.println("Bubble Sort");
 		for(intCount = 0; intCount < intNum; intCount++){
-			System.out.println(strWords[intCount][1]);
+			System.out.println(strWords[intCount][1]+" | "+strWords[intCount][0]);
 		}
 		
-		// start of user game play
+		
 		boolean blnPlay = true;
-		intCount = 0;
-		String strSecret;
-		int intLength;
-		int intTry = 0;
-		int intScore;
-		// blnUnique = false;
-		while(blnPlay && intTry > -1){
-			strSecret = strWords[intCount][0];
-			intLength = strSecret.length();
-			intTry = intLength - 4;
-			
-			// scamble word	
-			String strScamble;
-			
-			
-			
-		/*while (!isUnique) {
-			randomIndex = (int) (Math.random() * intLength);
-			isUnique = true;
-		}
-		*/
-		}
-		
-		
-		
-		// testing
-		boolean blnPlay = true;
-		String strSecret = "sodium"; // Example word
 		int intLength;
 		int intTryLeft;
-		String[] strIndex;
+		String strIndex[];
+		int intUsed = 0;
+		String strSecret;
 
+		while (blnPlay) {
+			strSecret = strWords[intUsed][0];
+			intLength = strSecret.length();
+			intTryLeft = intLength - 4;
+			strIndex = new String[intLength];
+
+			// Generate random number
+			for (intRow = 0; intRow < intLength; intRow++) {
+				boolean blnIsUnique = false;
+				int randomIndex = -1;
+
+				// ensure all numbers are unique
+				while (!blnIsUnique) {
+					randomIndex = (int) (Math.random() * intLength);
+					blnIsUnique = true;
+
+					// Check against previously assigned indices
+					for (intRow2 = 0; intRow2 < intRow && blnIsUnique; intRow2++) {
+						if (strIndex[intRow2].equals(Integer.toString(randomIndex))) {
+							blnIsUnique = false;
+						}
+					}
+				}
+
+				// assign random index to become index number
+				strIndex[intRow] = Integer.toString(randomIndex);
+			}
+
+			// Debug: Print the random index 
+			System.out.print("Random index: ");
+			for (intRow = 0; intRow < intLength; intRow++) {
+				// System.out.print(strIndex[i] + (i < intLength - 1 ? ", " : "\n"));
+				System.out.print(strIndex[intRow] + ", ");
+			}
+
+			// Game logic
+			blnPlay = false; // Stop after one iteration for testing.
+			// error = keeps running
+		}
+		
+		
+		// start here
 		
 	} //end of method
 	

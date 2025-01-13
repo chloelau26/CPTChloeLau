@@ -184,33 +184,56 @@ public class cptTools{
 		System.out.println(" ");
 		System.out.println("Bubble Sort");
 		for(intCount = 0; intCount < intNum; intCount++){
-			System.out.println(strWords[intCount][1]);
+			System.out.println(strWords[intCount][1]+" | "+strWords[intCount][0]);
 		}
 		
-		// start of user game play
+		
 		boolean blnPlay = true;
-		intCount = 0;
-		String strSecret;
+		// String strSecret = "sodium"; // Example word
 		int intLength;
-		int intTry = 0;
-		int intScore;
-		// blnUnique = false;
-		while(blnPlay && intTry > -1){
-			strSecret = strWords[intCount][0];
+		int intTryLeft;
+		String strIndex[];
+		int intUsed = 0;
+		String strSecret;
+
+		while (blnPlay) {
+			strSecret = strWords[intUsed][0];
 			intLength = strSecret.length();
-			intTry = intLength - 4;
-			
-			// scamble word	
-			String strScamble;
-			
-			
-			
-		/*while (!isUnique) {
-			randomIndex = (int) (Math.random() * intLength);
-			isUnique = true;
+			intTryLeft = intLength - 4;
+			strIndex = new String[intLength];
+
+			// Generate random number
+			for (int i = 0; i < intLength; i++) {
+				boolean isUnique = false;
+				int randomIndex = -1;
+
+				// ensure all numbers are unique
+				while (!isUnique) {
+					randomIndex = (int) (Math.random() * intLength);
+					isUnique = true;
+
+					// Check against previously assigned indices
+					for (int j = 0; j < i && isUnique; j++) {
+						if (strIndex[j].equals(Integer.toString(randomIndex))) {
+							isUnique = false;
+						}
+					}
+				}
+
+				// Assign the unique random index to the array
+				strIndex[i] = Integer.toString(randomIndex);
+			}
+
+			// Debug: Print the generated indices manually
+			System.out.print("Random indices: ");
+			for (int i = 0; i < intLength; i++) {
+				System.out.print(strIndex[i] + (i < intLength - 1 ? ", " : "\n"));
+			}
+
+			// Game logic
+			blnPlay = false; // Stop after one iteration for testing
 		}
-		*/
-		}
+		
 		
 	} //end of method
 	
