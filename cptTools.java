@@ -118,7 +118,7 @@ public class cptTools{
 		}		
 		list.close();
 		
-		// Variables for ensure uniqueness of each number
+		// Variables for strWords Array
 		int intRow2;
 		int intTestRow;
 		int intTrack = 0;
@@ -150,7 +150,7 @@ public class cptTools{
 			}
 		}
 		
-		// print to debug (ensure all numbers in array are unique)
+		// print to debug (ensure all numbers in strWords array are unique)
 		int intCount;
 		System.out.println(" ");
 		System.out.println("Uniqueness of Number");
@@ -188,55 +188,96 @@ public class cptTools{
 		}
 		
 		
-		boolean blnPlay = true;
-		int intLength;
-		int intTryLeft;
-		String strIndex[];
-		int intUsed = 0;
-		String strSecret;
+		
+		
+		
+		
+		
+		
+		
 
-		while (blnPlay) {
-			strSecret = strWords[intUsed][0];
-			intLength = strSecret.length();
-			intTryLeft = intLength - 4;
-			strIndex = new String[intLength];
+		int intOrder = 0;
+		// set secret word
+		String strSecret = strWords[intOrder][0]; 
+		// length of word
+		int intLength = strSecret.length(); 
+		
+		// Array to store letters and their random number
+		String[][] strIndex = new String[intLength][2]; 
 
-			// Generate random number
-			for (intRow = 0; intRow < intLength; intRow++) {
-				boolean blnIsUnique = false;
-				int randomIndex = -1;
+		// Initialize strIndex with letters and random numbers
+		for (intRow = 0; intRow < intLength; intRow++) {
+			// Store letters
+			strIndex[intRow][0] = strSecret.substring(intRow, intRow + 1); 
+			System.out.println(strIndex[intRow][0]);
+			// Generate random number as string
+			intRandom = (int) (Math.random() * 100 + 1); 
+			strIndex[intRow][1] = Integer.toString(intRandom);
+			System.out.println(strIndex[intRow][1]);
+		}
 
-				// ensure all numbers are unique
-				while (!blnIsUnique) {
-					randomIndex = (int) (Math.random() * intLength);
-					blnIsUnique = true;
+		// Ensure all random numbers in strIndex are unique
+		for (intRow = 0; intRow < intLength; intRow++) {
+			for (intRow2 = 0; intRow2 < intLength; intRow2++) {
+				// Compare only different row values
+				if (intRow2 != intRow && strIndex[intRow][1].equals(strIndex[intRow2][1])) {
+					blnDiffNum = false;
+					while (!blnDiffNum) {
+						intRandom = (int) (Math.random() * 100 + 1);
+						strIndex[intRow][1] = Integer.toString(intRandom);
 
-					// Check against previously assigned indices
-					for (intRow2 = 0; intRow2 < intRow && blnIsUnique; intRow2++) {
-						if (strIndex[intRow2].equals(Integer.toString(randomIndex))) {
-							blnIsUnique = false;
+						// Reset intTrack
+						intTrack = 0;
+						for (intTestRow = 0; intTestRow < intLength; intTestRow++) {
+							if (intTestRow != intRow && !strIndex[intRow][1].equals(strIndex[intTestRow][1])) {
+								intTrack++;
+							}
+						}
+
+						// If nothing repeats, exit loop
+						if (intTrack == intLength - 1) {
+							blnDiffNum = true;
 						}
 					}
 				}
-
-				// assign random index to become index number
-				strIndex[intRow] = Integer.toString(randomIndex);
 			}
+		}
 
-			// Debug: Print the random index 
-			System.out.print("Random index: ");
-			for (intRow = 0; intRow < intLength; intRow++) {
-				// System.out.print(strIndex[i] + (i < intLength - 1 ? ", " : "\n"));
-				System.out.print(strIndex[intRow] + ", ");
+		// Print to debug (ensure all numbers are unique)
+		System.out.println(" ");
+		System.out.println("Uniqueness of Numbers");
+		for (intCount = 0; intCount < intLength; intCount++) {
+			System.out.println(strIndex[intCount][1]);
+		}
+
+		// Bubble sort based on random numbers
+		for (intRow1 = 0; intRow1 < intLength - 1; intRow1++) {
+			for (intRow2 = 0; intRow2 < intLength - intRow1 - 1; intRow2++) {
+				if (Integer.parseInt(strIndex[intRow2][1]) > Integer.parseInt(strIndex[intRow2 + 1][1])) {
+					// Store values greater into a temporary variable
+					strTempName = strIndex[intRow2][0];
+					strTempNum = strIndex[intRow2][1];
+
+					// Right item moves to the left
+					strIndex[intRow2][0] = strIndex[intRow2 + 1][0];
+					strIndex[intRow2][1] = strIndex[intRow2 + 1][1];
+
+					// Put temporary value to right
+					strIndex[intRow2 + 1][0] = strTempName;
+					strIndex[intRow2 + 1][1] = strTempNum;
+				}
 			}
+		}
 
-			// Game logic
-			blnPlay = false; // Stop after one iteration for testing.
-			// error = keeps running
+		// Print to debug (ensure numbers are sorted properly)
+		System.out.println(" ");
+		System.out.println("Bubble Sort");
+		for (intCount = 0; intCount < intLength; intCount++) {
+			System.out.println(strIndex[intCount][1] + " | " + strIndex[intCount][0]);
 		}
 		
 		
-		// start here
+		
 		
 	} //end of method
 	
