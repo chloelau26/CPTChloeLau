@@ -81,7 +81,7 @@ public class cptTools{
 		return strTheme;
 	}
 	
-	public static void play(Console con){
+	public static void play(Console con, String strUserName){
 		// open themes words from text file
 		String strTheme = cptTools.theme(con);
 		strTheme = strTheme + ".txt";
@@ -195,88 +195,161 @@ public class cptTools{
 		
 		
 		
-
+		// begin game play
 		int intOrder = 0;
-		// set secret word
-		String strSecret = strWords[intOrder][0]; 
-		// length of word
-		int intLength = strSecret.length(); 
+		String strSecret;
+		int intLength;
+		boolean blnPlay = true;
 		
-		// Array to store letters and their random number
-		String[][] strIndex = new String[intLength][2]; 
+		while(blnPlay){
+			// set secret word
+			strSecret = strWords[intOrder][0]; 
+			// length of word
+			intLength = strSecret.length(); 
+			
+			// Array to store letters and their random number
+			String[][] strIndex = new String[intLength][2]; 
 
-		// Initialize strIndex with letters and random numbers
-		for (intRow = 0; intRow < intLength; intRow++) {
-			// Store letters
-			strIndex[intRow][0] = strSecret.substring(intRow, intRow + 1); 
-			System.out.println(strIndex[intRow][0]);
-			// Generate random number as string
-			intRandom = (int) (Math.random() * 100 + 1); 
-			strIndex[intRow][1] = Integer.toString(intRandom);
-			System.out.println(strIndex[intRow][1]);
-		}
+			// Initialize strIndex with letters and random numbers
+			for (intRow = 0; intRow < intLength; intRow++) {
+				// Store letters
+				strIndex[intRow][0] = strSecret.substring(intRow, intRow + 1); 
+				// Generate random number as string
+				intRandom = (int) (Math.random() * 100 + 1); 
+				strIndex[intRow][1] = Integer.toString(intRandom);
+			}
 
-		// Ensure all random numbers in strIndex are unique
-		for (intRow = 0; intRow < intLength; intRow++) {
-			for (intRow2 = 0; intRow2 < intLength; intRow2++) {
-				// Compare only different row values
-				if (intRow2 != intRow && strIndex[intRow][1].equals(strIndex[intRow2][1])) {
-					blnDiffNum = false;
-					while (!blnDiffNum) {
-						intRandom = (int) (Math.random() * 100 + 1);
-						strIndex[intRow][1] = Integer.toString(intRandom);
+			// Ensure all random numbers in strIndex are unique
+			for (intRow = 0; intRow < intLength; intRow++) {
+				for (intRow2 = 0; intRow2 < intLength; intRow2++) {
+					// Compare only different row values
+					if (intRow2 != intRow && strIndex[intRow][1].equals(strIndex[intRow2][1])) {
+						blnDiffNum = false;
+						while (!blnDiffNum) {
+							intRandom = (int) (Math.random() * 100 + 1);
+							strIndex[intRow][1] = Integer.toString(intRandom);
 
-						// Reset intTrack
-						intTrack = 0;
-						for (intTestRow = 0; intTestRow < intLength; intTestRow++) {
-							if (intTestRow != intRow && !strIndex[intRow][1].equals(strIndex[intTestRow][1])) {
-								intTrack++;
+							// Reset intTrack
+							intTrack = 0;
+							for (intTestRow = 0; intTestRow < intLength; intTestRow++) {
+								if (intTestRow != intRow && !strIndex[intRow][1].equals(strIndex[intTestRow][1])) {
+									intTrack++;
+								}
 							}
-						}
 
-						// If nothing repeats, exit loop
-						if (intTrack == intLength - 1) {
-							blnDiffNum = true;
+							// If nothing repeats, exit loop
+							if (intTrack == intLength - 1) {
+								blnDiffNum = true;
+							}
 						}
 					}
 				}
 			}
-		}
 
-		// Print to debug (ensure all numbers are unique)
-		System.out.println(" ");
-		System.out.println("Uniqueness of Numbers");
-		for (intCount = 0; intCount < intLength; intCount++) {
-			System.out.println(strIndex[intCount][1]);
-		}
+			// Bubble sort based on random numbers
+			for (intRow1 = 0; intRow1 < intLength - 1; intRow1++) {
+				for (intRow2 = 0; intRow2 < intLength - intRow1 - 1; intRow2++) {
+					if (Integer.parseInt(strIndex[intRow2][1]) > Integer.parseInt(strIndex[intRow2 + 1][1])) {
+						// Store values greater into a temporary variable
+						strTempName = strIndex[intRow2][0];
+						strTempNum = strIndex[intRow2][1];
 
-		// Bubble sort based on random numbers
-		for (intRow1 = 0; intRow1 < intLength - 1; intRow1++) {
-			for (intRow2 = 0; intRow2 < intLength - intRow1 - 1; intRow2++) {
-				if (Integer.parseInt(strIndex[intRow2][1]) > Integer.parseInt(strIndex[intRow2 + 1][1])) {
-					// Store values greater into a temporary variable
-					strTempName = strIndex[intRow2][0];
-					strTempNum = strIndex[intRow2][1];
+						// Right item moves to the left
+						strIndex[intRow2][0] = strIndex[intRow2 + 1][0];
+						strIndex[intRow2][1] = strIndex[intRow2 + 1][1];
 
-					// Right item moves to the left
-					strIndex[intRow2][0] = strIndex[intRow2 + 1][0];
-					strIndex[intRow2][1] = strIndex[intRow2 + 1][1];
-
-					// Put temporary value to right
-					strIndex[intRow2 + 1][0] = strTempName;
-					strIndex[intRow2 + 1][1] = strTempNum;
+						// Put temporary value to right
+						strIndex[intRow2 + 1][0] = strTempName;
+						strIndex[intRow2 + 1][1] = strTempNum;
+					}
 				}
 			}
-		}
 
-		// Print to debug (ensure numbers are sorted properly)
-		System.out.println(" ");
-		System.out.println("Bubble Sort");
-		for (intCount = 0; intCount < intLength; intCount++) {
-			System.out.println(strIndex[intCount][1] + " | " + strIndex[intCount][0]);
+			// Print to debug (ensure numbers are sorted properly)
+			System.out.println(" ");
+			System.out.println("Bubble Sort");
+			for (intCount = 0; intCount < intLength; intCount++) {
+				System.out.println(strIndex[intCount][1] + " | " + strIndex[intCount][0]);
+			}
+			
+			
+			// assembled the scrambled letter
+			String strScramble;
+			strScramble = "";
+			for(intRow = 0; intRow < intLength; intRow++){
+				strScramble = strScramble + strIndex[intRow][0];
+			}
+			System.out.println(strScramble);
+			
+			int intTry;
+			intTry = intLength - 4;
+			int intScore = 0;
+			
+			
+			int intThemeLength = strTheme.length();
+			String strGuess;
+			con.println("Theme Selected: "+strTheme.substring(0, intThemeLength - 4));
+			con.println("Username: "+strUserName);
+			con.println(strScramble);
+			con.println("Try Left: "+intTry);
+			
+			con.print("Enter Secret Word: ");
+			strGuess = con.readLine();
+			boolean blnCorrect = false;
+			char chrChoice;
+			
+			while(!blnCorrect){
+				if(strGuess.equalsIgnoreCase("s")){
+					cptTools.secretMenu(con);
+					con.println(" -------------------------------------------------------------------------");
+					con.print("Enter Secret Word: ");
+					strGuess = con.readLine();
+				}else if(strGuess.equalsIgnoreCase(strUserName)){
+					intTry = intTry + 1; // why is it updating infitinly 
+					con.println(" -------------------------------------------------------------------------");
+					con.println("Try Left Updated: "+intTry);
+					con.print("Enter Secret Word: ");
+					strGuess = con.readLine();
+				}else if(intTry > 0){
+					if(!strGuess.equalsIgnoreCase(strSecret)){
+						intTry--;
+						if(intTry > 0){
+							con.println("Try Left: "+intTry);
+							con.print("Enter Secret Word: ");
+							strGuess = con.readLine();
+						}
+					}else if(strGuess.equalsIgnoreCase(strSecret)){
+						blnCorrect = true;
+						intScore = intOrder + 1; // score has error
+						con.clear(); // unsure if to keep
+						con.println("Congrats!"); // need edits
+						con.println("Current Score: "+intScore);
+						con.print("Would you like to continue (y/n): ");
+						chrChoice = con.readChar();
+						if(chrChoice == 'y'){ // statement need to be replicated below
+							intOrder++;
+							con.clear();
+							if(intOrder >= intNum){
+								con.println("No more words avaliable");
+								// return it to main menu
+								blnPlay = false;
+							}
+						}else if(chrChoice == 'n'){
+							// uncertain
+							con.println("TBD");
+							blnPlay = false; // be catious
+						}
+					}
+				}else if(intTry == 0){
+					con.println("Game over");
+					con.print("Would you like to continue (y/n): ");
+					chrChoice = con.readChar();
+					// same statement as the one above
+
+				}
+			}
+		
 		}
-		
-		
 		
 		
 	} //end of method

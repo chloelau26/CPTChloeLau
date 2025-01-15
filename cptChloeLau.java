@@ -28,7 +28,7 @@ public class cptChloeLau{
 				highScore.println(strUser);
 				highScore.close();
 				
-				cptTools.play(con);
+				cptTools.play(con, strUser);
 								
 			}else if(chrChoice == 'v'){
 				// view high score option
