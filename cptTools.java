@@ -1,11 +1,25 @@
 import arc.*;
+import java.awt.*;
+import java.awt.image.*;
 
 public class cptTools{
+	private static int intScore;
 	public static char menuOption(Console con){		
 		// Variables
 		char chrChoice; 
 		
+		// format (background)
+		BufferedImage imgBackground = con.loadImage("overall.jpg");
+		con.drawImage(imgBackground, 0, 0);
+		
+		con.setDrawColor(Color.black);
+		con.fillRect(5, 5, 500, 700);
+		con.println("");
+		
+		
 		// Output Option
+		con.println(" Guess The Word");
+		con.println(" ----------------------------");
 		con.println(" Play Game (p)");
 		con.println(" View High Score (v)");
 		con.println(" Quit (q)");
@@ -58,20 +72,54 @@ public class cptTools{
 	public static String theme(Console con){
 		// Variable
 		String strTheme;
+		con.println("-----------------------------------------");
+		con.println(" Please enter the word in exact format");
+		con.println(" Example - Enter Choice: Countries");
+		con.println("-----------------------------------------");
 			
 		// Output Theme Option
 		TextInputFile txtTheme = new TextInputFile("Theme.txt");
 		int intRow = 1; 
 		while(txtTheme.eof() == false){
 			strTheme = txtTheme.readLine();
-			con.println(intRow + ". " + strTheme);
+			con.println(" "+intRow + ". " + strTheme);
 			intRow++;
 		}
 		txtTheme.close();
-			
+		
 		//Store User Decision
-		con.print("Enter choice: ");
+		con.print(" Enter choice: ");
 		strTheme = con.readLine();
+		
+		//
+		/*
+		String strThemeOption[] = new String[intRow];
+		// Output Theme Option
+		txtTheme = new TextInputFile("Theme.txt");
+		int intCount = 0; 
+		while(txtTheme.eof() == false){
+			strThemeOption[intCount] = txtTheme.readLine();
+			System.out.println(strThemeOption[intCount]);
+		}
+		txtTheme.close();
+		
+		intCount = 0;
+		int intUnmatched = 0;
+		while(intCount < intRow){
+			if(!strTheme.equalsIgnoreCase(strThemeOption[intCount])){
+				intUnmatched++;
+			}
+		}
+		*/
+		/*
+		if(intUnmatched == intRow){
+			con.println("Theme NOT found");
+			con.println("Return to main menu");
+			cptTools.mainMenu(con);
+			return " ";
+		}
+		*/
+		//
 		
 		// transition screen
 		con.sleep(100);
@@ -80,7 +128,7 @@ public class cptTools{
 		return strTheme;
 	}
 	
-	public static void play(Console con, String strUserName){
+	public static void play(Console con, String strUserName){		
 		// open themes words from text file
 		String strTheme = cptTools.theme(con);
 		strTheme = strTheme + ".txt";
@@ -192,8 +240,17 @@ public class cptTools{
 		String strSecret;
 		int intLength;
 		boolean blnPlay = true;
+		intScore = 0;
 		
 		while(blnPlay){
+			// background for game play
+			BufferedImage imgBackground = con.loadImage("playscreen.jpg");
+			con.drawImage(imgBackground, 0, 0);
+			
+			con.setDrawColor(Color.black);
+			con.fillRect(5, 5, 600, 710);
+			con.println("");
+		
 			// set secret word
 			strSecret = strWords[intOrder][0]; 
 			// length of word
@@ -275,18 +332,19 @@ public class cptTools{
 			// variables for score system
 			int intTry;
 			intTry = intLength - 4;
-			int intScore = 0;
-			int intUnsolved = 0;
 			
 			// Game console appearance
 			int intThemeLength = strTheme.length();
 			String strGuess;
-			con.println("Theme Selected: "+strTheme.substring(0, intThemeLength - 4));
-			con.println("Username: "+strUserName);
+			con.println(" Theme Selected: "+strTheme.substring(0, intThemeLength - 4));
+			con.println(" Username: "+strUserName);
+			con.println("");
+			con.print("               ");
 			con.println(strScramble);
-			con.println("Try Left: "+intTry);
+			con.println("");
+			con.println(" Try Left: "+intTry);
 			
-			con.print("Enter Secret Word: ");
+			con.print(" Enter Secret Word: ");
 			strGuess = con.readLine();
 			boolean blnCorrect = false;
 			char chrChoice;
@@ -295,16 +353,16 @@ public class cptTools{
 			while(!blnCorrect){
 				// access secret menu
 				if(strGuess.equalsIgnoreCase("s")){
-					con.println(" -------------------------------------------------------------------------");
+					con.println(" -----------------------------------------------");
 					cptTools.secretMenu(con);
-					con.println(" -------------------------------------------------------------------------");
-					con.print("Enter Secret Word: ");
+					con.println(" -----------------------------------------------");
+					con.print(" Enter Secret Word: ");
 					strGuess = con.readLine();
 					
 				// user cheat
 				}else if(strGuess.equalsIgnoreCase(strUserName)){
 					intTry = intTry + 1;
-					con.println(" -------------------------------------------------------------------------");
+					con.println(" -----------------------------------------------");
 					con.println("Try Left Updated: "+intTry);
 					con.print("Enter Secret Word: ");
 					strGuess = con.readLine();
@@ -314,23 +372,36 @@ public class cptTools{
 					if(!strGuess.equalsIgnoreCase(strSecret)){
 						intTry--;
 						if(intTry > 0){
-							con.println("Try Left: "+intTry);
-							con.print("Enter Secret Word: ");
+							con.println(" -----------------------------------------------");
+							con.println(" Try Left: "+intTry);
+							con.print(" Enter Secret Word: ");
 							strGuess = con.readLine();
+							con.println("");
 						}
 						
 					// guess word correctly
 					}else if(strGuess.equalsIgnoreCase(strSecret)){
 						blnCorrect = true;
 						// score updated
-						intScore = intOrder + 1; //error
+						intScore = intScore + 1;
+						System.out.println(intScore);
 						con.clear();
-						con.println("Solved!"); // need edits
-						con.println(strScramble + " = "+ strSecret);
-						con.println("Current Score: "+intScore);
+						
+						// background for solved
+						imgBackground = con.loadImage("solved.jpg");
+						con.drawImage(imgBackground, 0, 0);
+						con.setDrawColor(Color.black);
+						con.fillRect(5, 5, 600, 710);
+						
+						// solved message
+						con.println("");
+						con.println(" Solved!");
+						con.println("      "+strScramble + " = "+ strSecret);
+						con.println(" -----------------------------------------------");
+						con.println(" Current Score: "+intScore);
 						
 						// user decision to continue
-						con.print("Would you like to continue (y/n): ");
+						con.print(" Would you like to continue (y/n): ");
 						chrChoice = con.readChar();
 						
 						// if statement when continued (yes)
@@ -339,7 +410,7 @@ public class cptTools{
 							con.clear();
 							// reach the end of word in theme
 							if(intOrder >= intNum){
-								con.println("No more words avaliable");
+								con.println(" No more words avaliable");
 								// save high score
 								TextOutputFile highScore = new TextOutputFile("highscore.txt",true); 
 								highScore.println(intScore);
@@ -347,6 +418,7 @@ public class cptTools{
 							
 								// return it to main menu
 								blnPlay = false;
+								intScore = 0;
 								cptTools.menuOption(con);
 							}
 							
@@ -360,6 +432,7 @@ public class cptTools{
 							// exit play game while loop & return to main menu						
 							blnPlay = false;
 							con.clear();
+							intScore = 0;
 							cptTools.mainMenu(con);
 						
 						// invalid input for decision to continue
@@ -382,9 +455,8 @@ public class cptTools{
 								// exit play game while loop & return to main menu						
 								blnPlay = false;
 								con.clear();
+								intScore = 0;
 								cptTools.mainMenu(con);
-
-
 
 
 							// invalid input (user decision to continue; decision is yes)
@@ -401,6 +473,7 @@ public class cptTools{
 								
 									// return it to main menu
 									blnPlay = false;
+									intScore = 0;
 									cptTools.menuOption(con);
 								}
 								
@@ -411,6 +484,7 @@ public class cptTools{
 								con.sleep(500);
 								con.clear();
 								blnPlay = false;
+								intScore = 0;
 								cptTools.mainMenu(con);
 							}
 						}
@@ -420,29 +494,81 @@ public class cptTools{
 					
 					
 					
-					
+					// if out of tries
 					}else if(intTry <= 0){
+						blnCorrect = true;
 						con.sleep(100);
 						con.clear();
-						con.println("Game over");
-						// statement
-						con.println(strScramble + " = "+ strSecret);
-						con.println("Current Score: "+intScore); // error
 						
-						con.print("Would you like to continue (y/n): ");
+						// background for game over
+						imgBackground = con.loadImage("gameover.jpg");
+						con.drawImage(imgBackground, 0, 0);
+						con.setDrawColor(Color.black);
+						con.fillRect(5, 5, 600, 235);
+						
+						con.println("");
+						con.println(" Game over");
+						// output score
+						con.println("      "+strScramble + " = "+ strSecret);
+						con.println("--------------------------------------");
+						con.println(" Current Score: "+intScore);
+						
+						// user decision to continue
+						con.print(" Would you like to continue (y/n): ");
 						chrChoice = con.readChar();
-						// same statement as the one above
+												
+						// if statement when continued (yes)
+						if(chrChoice == 'y'){ // statement need to be replicated below
+							intOrder++;
+							con.clear();
+							// reach the end of word in theme
+							if(intOrder >= intNum){
+								con.println(" No more words avaliable");
+								// save high score
+								TextOutputFile highScore = new TextOutputFile("highscore.txt",true); 
+								highScore.println(intScore);
+								highScore.close();
+							
+								// return it to main menu
+								blnPlay = false;
+								intScore = 0;
+								cptTools.menuOption(con);
+							}
+							
+						// user decide to not continue (no)
+						}else if(chrChoice == 'n'){
+							// save high score
+							TextOutputFile highScore = new TextOutputFile("highscore.txt",true); 
+							highScore.println(intScore);
+							highScore.close();
+							
+							// exit play game while loop & return to main menu						
+							blnPlay = false;
+							con.clear();
+							intScore = 0;
+							cptTools.mainMenu(con);
 						
-
-					
-
+						// invalid input for decision to continue
+						}else if(chrChoice != 'n' && chrChoice != 'y'){
+							blnPlay = false;
+							con.println("");
+							con.println(" -----------------------------------------------");
+							con.println(" Invalid Input");
+							con.println(" Game will now return to main menu");
+							con.sleep(500);
+							con.clear();
+							intScore = 0;
+							cptTools.mainMenu(con);
+						}
+						
 				}
 			}
 		
 		}
 		
-		
 	} //end of method
+	
+	
 	
 	public static void mainMenu(Console con){
 		// activate main menu 
@@ -462,6 +588,7 @@ public class cptTools{
 				
 				// user input user info
 				String strUser;
+				con.println("");
 				con.print(" Enter username: ");
 				strUser = con.readLine();
 				
@@ -472,8 +599,73 @@ public class cptTools{
 				cptTools.play(con, strUser);
 								
 			}else if(chrChoice == 'v'){
+				// view high score
 				con.clear();
-				cptTools.highScores(con);
+				// cptTools.highScores(con);
+				
+				// identify number of players
+				TextInputFile txtHighScore = new TextInputFile("highscore.txt"); 
+				int intNum = 0;
+				while(txtHighScore.eof() == false){
+					txtHighScore.readLine();
+					txtHighScore.readLine();
+					intNum++;
+				}
+				txtHighScore.close();
+				
+				String strHighScore[][];
+				strHighScore = new String[intNum][2];
+				int intCount = 0;
+				
+				// reopen high score txt file & store values into strHighScore array
+				txtHighScore = new TextInputFile("highscore.txt"); 
+				while(txtHighScore.eof() == false){
+					strHighScore[intCount][0] = txtHighScore.readLine();
+					System.out.println(strHighScore[intCount][0]);
+					strHighScore[intCount][1] = txtHighScore.readLine();
+					System.out.println(strHighScore[intCount][1]);
+					intCount++;
+				}
+				txtHighScore.close();
+				
+				// bubble sort words
+				int intRow1;
+				int intRow2;
+				String strTempNum;
+				String strTempName;
+				for(intRow1 = 0; intRow1 < intNum - 1; intRow1++){
+					for(intRow2 = 0; intRow2 < intNum - intRow1 - 1; intRow2++){
+						if(Integer.parseInt(strHighScore[intRow2][1]) < Integer.parseInt(strHighScore[intRow2+1][1])){
+							// store values greater into a temporary variable
+							strTempName = strHighScore[intRow2][0];
+							strTempNum = strHighScore[intRow2][1];
+							
+							// right item moves to the left
+							strHighScore[intRow2][0] = strHighScore[intRow2+1][0];
+							strHighScore[intRow2][1] = strHighScore[intRow2+1][1];
+							
+							// put temporary value to right
+							strHighScore[intRow2+1][0] = strTempName;
+							strHighScore[intRow2+1][1] = strTempNum;
+						}
+					}
+				}
+				
+				// print to debug (ensure bubble sort works)
+				System.out.println(" ");
+				System.out.println("Bubble Sort");
+				for(intCount = 0; intCount < intNum; intCount++){
+					System.out.println(strHighScore[intCount][1]+" | "+strHighScore[intCount][0]);
+				}
+				
+				con.println("");
+				con.println(" Leaderboard");
+				con.println(" Username | Score");
+				for(intCount = 0; intCount < 10; intCount++){
+					con.println(" "+strHighScore[intCount][0]+" | "+strHighScore[intCount][1]);
+				}
+				
+				
 				con.println("");
 				
 				// User decision to return to main menu
@@ -482,16 +674,20 @@ public class cptTools{
 				if(chrChoice != 'm'){
 					con.clear();
 					// invalid input
+					con.println("");
 					con.println(" Invalid Input");
 					con.println(" Please Try Again");
-					con.println(" -----------------------------------------------");
+					con.println(" -----------------------------------------");
 					con.print(" Return to main menu (m): ");
 					chrChoice = con.readChar();
 					if(chrChoice != 'm'){
-						con.println(" -----------------------------------------------");
-						con.println(" Too many invalid attempts. Game will now exit.");
+						con.println(" -----------------------------------------");
+						con.println(" Too many invalid attempts.");
+						con.println("Return to main menu");
 						con.sleep(500);
-						con.closeWindow();
+						// con.closeWindow();
+						con.clear();
+						cptTools.mainMenu(con);
 					}
 				}else if(chrChoice == 'm'){
 					con.sleep(100);
@@ -507,6 +703,14 @@ public class cptTools{
 			}else if(chrChoice == 'h'){
 				// help option
 				con.clear();
+				
+				// format background
+				BufferedImage imgBackground = con.loadImage("overall.jpg");
+				con.drawImage(imgBackground, 0, 0);
+				con.setDrawColor(Color.black);
+				con.fillRect(5, 5, 1260, 250);
+				
+				con.println("");
 				con.println("Guess The Word");
 				con.println(" 1. Select a Theme: A word will be randomly generated based on the selected theme.");
 				con.println(" 2. Unscramble the Word: You must attempt to guess and unscramble the word within a ");
@@ -514,19 +718,21 @@ public class cptTools{
 				con.println(" 3. Scoring and Continuation: After solving the word, one point will be added to your score."); 
 				con.println("    You will then have the option to either continue playing or quit the game.");
 				
+				// return to main menu
 				con.println("");
 				con.print(" Return to main menu (m): ");
 				chrChoice = con.readChar();
 				if(chrChoice != 'm'){
 					con.clear();
 					// invalid input
+					con.println("");
 					con.println(" Invalid Input");
 					con.println(" Please Try Again");
-					con.println(" -----------------------------------------------");
+					con.println(" -----------------------------------------");
 					con.print(" Return to main menu (m): ");
 					chrChoice = con.readChar();
 					if(chrChoice != 'm'){
-						con.println(" -----------------------------------------------");
+						con.println(" -----------------------------------------");
 						con.println(" Too many invalid attempts. Game will now exit.");
 						con.sleep(500);
 						con.closeWindow();
@@ -542,14 +748,14 @@ public class cptTools{
 				con.clear();
 				con.println(" Invalid Input");
 				con.println(" Please Try Again");
-				con.println(" -----------------------------------------------");
+				con.println(" -----------------------------------------");
 				chrChoice = cptTools.menuOption(con); 
 				
 				if(chrChoice != 'p' && chrChoice != 'v' && chrChoice != 'q' && chrChoice != 'h'){
 					con.clear();
 					con.println("Invalid Input");
 					con.println("Please Try Again");
-					con.println("-----------------------------------------------");
+					con.println("-----------------------------------------");
 					chrChoice = cptTools.menuOption(con); 
 					if(chrChoice != 'p' && chrChoice != 'v' && chrChoice != 'q' && chrChoice != 'h'){
 						con.println("");
@@ -620,10 +826,10 @@ public class cptTools{
 			System.out.println(strHighScore[intCount][1]+" | "+strHighScore[intCount][0]);
 		}
 		
-		con.println("Leaderboard");
-		con.println("Username | Score");
-		for(intCount = 0; intCount < intNum; intCount++){
-			con.println(strHighScore[intCount][1]+" | "+strHighScore[intCount][0]);
+		con.println(" Leaderboard");
+		con.println(" Username | Score");
+		for(intCount = 0; intCount < 5; intCount++){
+			con.println(" "+strHighScore[intCount][1]+" | "+strHighScore[intCount][0]);
 		}
 	}// end of method
 	
