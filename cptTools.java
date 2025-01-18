@@ -765,12 +765,12 @@ public class cptTools{
 		con.println(" Username | Score");
 		int intRow3 = 1;
 		
-		if(intNum > 5){
-			for(intCount = 0; intCount < 5; intCount++){
+		if(intNum > 10){
+			for(intCount = 0; intCount < 10; intCount++){
 			con.println(" "+intRow3+". "+strHighScore[intCount][0]+" | "+strHighScore[intCount][1]);
 			intRow3++;
 			}
-		}else if(intNum <= 5){
+		}else if(intNum <= 10){
 			for(intCount = 0; intCount < intNum; intCount++){
 			con.println(" "+intRow3+". "+strHighScore[intCount][0]+" | "+strHighScore[intCount][1]);
 			intRow3++;
