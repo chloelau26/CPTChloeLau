@@ -73,7 +73,7 @@ public class cptTools{
 		// Variable
 		String strTheme;
 		con.println("-----------------------------------------");
-		con.println(" Please enter the word in exact format");
+		con.println(" Please enter the option exactly as shown");
 		con.println(" Example - Enter Choice: Countries");
 		con.println("-----------------------------------------");
 			
@@ -337,7 +337,7 @@ public class cptTools{
 			con.print("               ");
 			con.println(strScramble);
 			con.println("");
-			con.println(" Try Left: "+intTry);
+			con.println(" Attempts Left: "+intTry);
 			
 			con.print(" Enter Secret Word: ");
 			strGuess = con.readLine();
@@ -358,7 +358,7 @@ public class cptTools{
 				}else if(strGuess.equalsIgnoreCase(strUserName)){
 					intTry = intTry + 1;
 					con.println(" -----------------------------------------------");
-					con.println("Try Left Updated: "+intTry);
+					con.println(" Attempts Left Updated: "+intTry);
 					con.print("Enter Secret Word: ");
 					strGuess = con.readLine();
 				
@@ -368,7 +368,7 @@ public class cptTools{
 						intTry--;
 						if(intTry > 0){
 							con.println(" -----------------------------------------------");
-							con.println(" Try Left: "+intTry);
+							con.println(" Attempts Left: "+intTry);
 							con.print(" Enter Secret Word: ");
 							strGuess = con.readLine();
 							con.println("");
