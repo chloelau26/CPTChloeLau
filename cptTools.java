@@ -90,41 +90,36 @@ public class cptTools{
 		//Store User Decision
 		con.print(" Enter choice: ");
 		strTheme = con.readLine();
-		
-		//
-		/*
-		String strThemeOption[] = new String[intRow];
-		// Output Theme Option
+
+		// check if theme is avaliable
+		boolean blnThemeOption = false;
 		txtTheme = new TextInputFile("Theme.txt");
-		int intCount = 0; 
 		while(txtTheme.eof() == false){
-			strThemeOption[intCount] = txtTheme.readLine();
-			System.out.println(strThemeOption[intCount]);
+			 String currentTheme = txtTheme.readLine();
+			if (strTheme.equalsIgnoreCase(currentTheme)) {
+				// if theme is avaliable
+				blnThemeOption = true;
+			}
 		}
 		txtTheme.close();
 		
-		intCount = 0;
-		int intUnmatched = 0;
-		while(intCount < intRow){
-			if(!strTheme.equalsIgnoreCase(strThemeOption[intCount])){
-				intUnmatched++;
-			}
-		}
-		*/
-		/*
-		if(intUnmatched == intRow){
-			con.println("Theme NOT found");
-			con.println("Return to main menu");
+		// if theme not found
+		if (!blnThemeOption) {
+			con.println(" ---------------------------");
+			con.println(" Theme NOT found");
+			con.println(" Returning to main menu...");
+			con.sleep(1000);
+			con.clear();
 			cptTools.mainMenu(con);
-			return " ";
+			// return empty string
+			return ""; 
 		}
-		*/
-		//
 		
 		// transition screen
 		con.sleep(100);
 		con.clear();
 				
+		// return theme selected
 		return strTheme;
 	}
 	
@@ -601,70 +596,7 @@ public class cptTools{
 			}else if(chrChoice == 'v'){
 				// view high score
 				con.clear();
-				// cptTools.highScores(con);
-				
-				// identify number of players
-				TextInputFile txtHighScore = new TextInputFile("highscore.txt"); 
-				int intNum = 0;
-				while(txtHighScore.eof() == false){
-					txtHighScore.readLine();
-					txtHighScore.readLine();
-					intNum++;
-				}
-				txtHighScore.close();
-				
-				String strHighScore[][];
-				strHighScore = new String[intNum][2];
-				int intCount = 0;
-				
-				// reopen high score txt file & store values into strHighScore array
-				txtHighScore = new TextInputFile("highscore.txt"); 
-				while(txtHighScore.eof() == false){
-					strHighScore[intCount][0] = txtHighScore.readLine();
-					System.out.println(strHighScore[intCount][0]);
-					strHighScore[intCount][1] = txtHighScore.readLine();
-					System.out.println(strHighScore[intCount][1]);
-					intCount++;
-				}
-				txtHighScore.close();
-				
-				// bubble sort words
-				int intRow1;
-				int intRow2;
-				String strTempNum;
-				String strTempName;
-				for(intRow1 = 0; intRow1 < intNum - 1; intRow1++){
-					for(intRow2 = 0; intRow2 < intNum - intRow1 - 1; intRow2++){
-						if(Integer.parseInt(strHighScore[intRow2][1]) < Integer.parseInt(strHighScore[intRow2+1][1])){
-							// store values greater into a temporary variable
-							strTempName = strHighScore[intRow2][0];
-							strTempNum = strHighScore[intRow2][1];
-							
-							// right item moves to the left
-							strHighScore[intRow2][0] = strHighScore[intRow2+1][0];
-							strHighScore[intRow2][1] = strHighScore[intRow2+1][1];
-							
-							// put temporary value to right
-							strHighScore[intRow2+1][0] = strTempName;
-							strHighScore[intRow2+1][1] = strTempNum;
-						}
-					}
-				}
-				
-				// print to debug (ensure bubble sort works)
-				System.out.println(" ");
-				System.out.println("Bubble Sort");
-				for(intCount = 0; intCount < intNum; intCount++){
-					System.out.println(strHighScore[intCount][1]+" | "+strHighScore[intCount][0]);
-				}
-				
-				con.println("");
-				con.println(" Leaderboard");
-				con.println(" Username | Score");
-				for(intCount = 0; intCount < 10; intCount++){
-					con.println(" "+strHighScore[intCount][0]+" | "+strHighScore[intCount][1]);
-				}
-				
+				cptTools.highScores(con);
 				
 				con.println("");
 				
@@ -826,11 +758,37 @@ public class cptTools{
 			System.out.println(strHighScore[intCount][1]+" | "+strHighScore[intCount][0]);
 		}
 		
+		// print out leaderboard
+		con.println("");
 		con.println(" Leaderboard");
+		con.println(" -----------------------------");
 		con.println(" Username | Score");
-		for(intCount = 0; intCount < 5; intCount++){
-			con.println(" "+strHighScore[intCount][1]+" | "+strHighScore[intCount][0]);
+		int intRow3 = 1;
+		
+		if(intNum > 5){
+			for(intCount = 0; intCount < 5; intCount++){
+			con.println(" "+intRow3+". "+strHighScore[intCount][0]+" | "+strHighScore[intCount][1]);
+			intRow3++;
+			}
+		}else if(intNum <= 5){
+			for(intCount = 0; intCount < intNum; intCount++){
+			con.println(" "+intRow3+". "+strHighScore[intCount][0]+" | "+strHighScore[intCount][1]);
+			intRow3++;
+			}
 		}
+		
+		// print out leaderboard
+		/*
+		con.println("");
+		con.println(" Leaderboard");
+		con.println(" -----------------------------");
+		con.println(" Username | Score");
+		int intRow3 = 1;
+		for(intCount = 0; intCount < 5; intCount++){
+			con.println(" "+intRow3+". "+strHighScore[intCount][0]+" | "+strHighScore[intCount][1]);
+			intRow3++;
+		}
+		*/
 	}// end of method
 	
 	
