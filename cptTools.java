@@ -123,12 +123,28 @@ public class cptTools{
 		return strTheme;
 	}
 	
-	public static void play(Console con, String strUserName){		
-		// open themes words from text file
+	public static void play(Console con){		
+		// user selection for theme
 		String strTheme = cptTools.theme(con);
+		
+		// open text file to store user info
+		TextOutputFile txtUserHighScore = new TextOutputFile("highscore.txt",true); 
+				
+		// user input user info
+		String strUserName;
+		con.println("");
+		con.print(" Enter username: ");
+		strUserName = con.readLine();
+				
+		// store into text file
+		txtUserHighScore.println(strUserName);
+		txtUserHighScore.close();
+		con.clear();
+		
+		// open themes words from text file
 		strTheme = strTheme + ".txt";
 		TextInputFile list = new TextInputFile(strTheme);
-				
+		
 		// count number of words in the theme file
 		int intNum = 0;
 		while(list.eof() == false){
@@ -578,6 +594,7 @@ public class cptTools{
 				blnAvaliable = true;
 				con.clear();
 				
+				/*
 				// open text file to store user info
 				TextOutputFile highScore = new TextOutputFile("highscore.txt",true); 
 				
@@ -592,7 +609,9 @@ public class cptTools{
 				highScore.close();
 				
 				cptTools.play(con, strUser);
-								
+				*/
+				cptTools.play(con);
+						
 			}else if(chrChoice == 'v'){
 				// view high score
 				con.clear();
@@ -776,19 +795,6 @@ public class cptTools{
 			intRow3++;
 			}
 		}
-		
-		// print out leaderboard
-		/*
-		con.println("");
-		con.println(" Leaderboard");
-		con.println(" -----------------------------");
-		con.println(" Username | Score");
-		int intRow3 = 1;
-		for(intCount = 0; intCount < 5; intCount++){
-			con.println(" "+intRow3+". "+strHighScore[intCount][0]+" | "+strHighScore[intCount][1]);
-			intRow3++;
-		}
-		*/
 	}// end of method
 	
 	
